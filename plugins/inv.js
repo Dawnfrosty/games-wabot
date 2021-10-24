@@ -3,6 +3,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     let healt = global.DATABASE._data.users[m.sender].healt
     let armor = global.DATABASE._data.users[m.sender].armor 
     let warn = global.DATABASE._data.users[m.sender].warn
+    let role = global.DATABASE._data.users[m.sender].role
     let pet = global.DATABASE._data.users[m.sender].pet
     let kucing = global.DATABASE._data.users[m.sender].kucing
     let _kucing = global.DATABASE._data.users[m.sender].anakkucing
@@ -44,6 +45,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     let str = `
 Inventory *${name.vnmae || name.notify || name.name || ('+' + name.jid.split`@`[0])}*\n
 Health: *${healt}*
+Role: *${role}*
 Armor: *${armor == 0 ? 'Tidak Punya' : '' || armor == 1 ? 'Leather Armor' : '' || armor == 2 ? 'Iron Armor' : '' || armor == 3 ? 'Gold Armor' : '' || armor == 4 ? 'Diamond Armor' : '' || armor == 5 ? 'Netherite Armor' : ''}*\n
 Money: *${money}*
 Level: *${level}*
