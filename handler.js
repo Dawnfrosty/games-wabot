@@ -1,6 +1,6 @@
 let util = require('util')
 let simple = require('./lib/simple')
-let { MessageType } = require('@adiwajshing/baileys')
+let { MessageType, Presence } = require('@adiwajshing/baileys')
 
 const isNumber = x => typeof x === 'number' && !isNaN(x)
 const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(resolve, ms))
@@ -366,6 +366,8 @@ ${(global.linkGC).map((v, i) => '*Group ' + (i + 1) + '*\n' + v).join`\n\n`}
             DevMode,
           }
           try {
+            let presence = opts['presence']
+            if (presence in Presence) await this.updatePresence(m.chat, Presence[presence]).catch(console.error)
             await plugin.call(this, m, extra)
             if (!isPrems) m.limit = m.limit || plugin.limit || false
           } catch (e) {
@@ -396,6 +398,7 @@ ${(global.linkGC).map((v, i) => '*Group ' + (i + 1) + '*\n' + v).join`\n\n`}
         }
       }
     } finally {
+      await this.updatePresence(m.chat, Presence.available).catch(console.error)
       //console.log(global.DATABASE._data.users[m.sender])
       let user, stats = global.DATABASE._data.stats
       if (m) {
